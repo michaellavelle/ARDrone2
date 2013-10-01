@@ -43,8 +43,7 @@ public class VideoReader implements Runnable {
 
     protected boolean connect() {
         try {
-            this.socket = new Socket(this.inetaddr, this.port);
-            System.out.println(this.socket);
+            this.socket = new Socket(inetaddr, port);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -71,13 +70,14 @@ public class VideoReader implements Runnable {
             connect();
             decode();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Restarting Video Stream");
             run();
         }
     }
 
     private void decode() {
         while (!this.done) {
+
             if (!IVideoResampler.isSupported(IVideoResampler.Feature.FEATURE_COLORSPACECONVERSION))
                 throw new RuntimeException("you must install the GPL version of Xuggler (with IVideoResampler support)");
 
@@ -87,7 +87,6 @@ public class VideoReader implements Runnable {
                 throw new IllegalArgumentException("Could not open input stream.");
 
             int numStreams = container.getNumStreams();
-
             int videoStreamId = -1;
             IStreamCoder videoCoder = null;
             for (int i = 0; i < numStreams; i++) {
@@ -112,7 +111,6 @@ public class VideoReader implements Runnable {
                 if (resampler == null)
                     throw new RuntimeException("Could not create color space resampler.");
             }
-
             IPacket packet = IPacket.make();
             long firstTimestampInStream = Global.NO_PTS;
             long systemClockStartTime = 0;
@@ -171,6 +169,7 @@ public class VideoReader implements Runnable {
                                         }
                                     }
                                 }
+
                                 BufferedImage javaImage = Utils.videoPictureToImage(newPic);
                                 drone.imageFrameReceived(javaImage);
                             }
