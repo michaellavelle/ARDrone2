@@ -24,7 +24,13 @@
          <id>owltoskos</id>
           <url>https://owltoskos.googlecode.com/svn/trunk/skitter/repo/</url>
         </repository>   
-	-->        
+	-->       
+	
+			<repository>
+			<id>Xuggle</id>
+			<url>http://xuggle.googlecode.com/svn/trunk/repo/share/java/</url>
+		</repository>
+		
     </repositories>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -74,6 +80,22 @@
             <version>1.6.2</version>
         </dependency>
 -->
+    <dependency>
+		<groupId>com.codeminders</groupId>
+        <version>1.3.1-SNAPSHOT</version>
+	<artifactId>javadrone-api</artifactId>
+
+    </dependency>
+    	 <dependency>
+      <groupId>xuggle</groupId>
+      <artifactId>xuggle-xuggler</artifactId>
+      <version>5.4</version>
+    </dependency>
+<dependency>
+  <groupId>log4j</groupId>
+  <artifactId>log4j</artifactId>
+  <version>1.2.9</version>
+</dependency> 	
     </dependencies>
 </project>
 

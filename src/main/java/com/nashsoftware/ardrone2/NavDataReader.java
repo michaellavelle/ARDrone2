@@ -1,11 +1,14 @@
 package com.nashsoftware.ardrone2;
 
 import com.codeminders.ardrone.*;
+import com.codeminders.ardrone.data.decoder.ardrone10.navdata.ARDrone10NavData;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
+
+
 
 public class NavDataReader extends DataReader {
 
@@ -36,7 +39,7 @@ public class NavDataReader extends DataReader {
             inbuf.flip();
             inbuf.get(packet, 0, len);
 
-            NavData nd = NavData.createFromData(packet);
+            NavData nd = ARDrone10NavData.createFromData(inbuf,len);
 
             drone.navDataReceived(nd);
         }

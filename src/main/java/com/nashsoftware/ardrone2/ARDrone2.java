@@ -26,7 +26,6 @@ The MIT License (MIT)
 
 import com.codeminders.ardrone.*;
 import com.codeminders.ardrone.commands.*;
-import com.codeminders.ardrone.NavData.FlyingState;
 import com.nashsoftware.ardrone2.video.DroneVideoListener;
 import com.nashsoftware.ardrone2.video.VideoReader;
 import org.apache.log4j.Logger;
@@ -38,6 +37,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
 import java.util.List;
+import com.codeminders.ardrone.data.navdata.FlyingState;
+import com.codeminders.ardrone.data.navdata.Mode;
 
 
 public class ARDrone2
@@ -450,24 +451,24 @@ public class ARDrone2
                     cmd_queue.add(new ControlCommand(5, 0));
                 }
 
-                if(state == State.TAKING_OFF && nd.getFlyingState() == NavData.FlyingState.FLYING)
+                if(state == State.TAKING_OFF && nd.getFlyingState() == FlyingState.FLYING)
                 {
                     log.debug("Take off success");
                     cmd_queue.clear(); // Maybe we should just remove
                     // LAND/TAKEOFF comand
                     // instead of nuking the whole queue?
                     changeState(State.DEMO);
-                } else if(state == State.LANDING && nd.getFlyingState() == NavData.FlyingState.LANDED)
+                } else if(state == State.LANDING && nd.getFlyingState() == FlyingState.LANDED)
                 {
                     log.debug("Landing success");
                     cmd_queue.clear(); // Maybe we should just remove
                     // LAND/TAKEOFF comand
                     // instead of nuking the whole queue?
                     changeState(State.DEMO);
-                } else if(state != State.BOOTSTRAP && nd.getMode() == NavData.Mode.BOOTSTRAP)
+                } else if(state != State.BOOTSTRAP && nd.getMode() == Mode.BOOTSTRAP)
                 {
                     changeState(State.BOOTSTRAP);
-                } else if(state == State.BOOTSTRAP && nd.getMode() == NavData.Mode.DEMO)
+                } else if(state == State.BOOTSTRAP && nd.getMode() == Mode.DEMO)
                 {
                     changeState(State.DEMO);
                 }
